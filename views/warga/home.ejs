@@ -1,0 +1,57 @@
+<%- include('../partials/header') %>
+
+<div class="min-h-screen bg-gradient-to-br from-hijau-50 via-white to-biru-50">
+  <!-- Hero Section -->
+  <div class="max-w-5xl mx-auto px-4 pt-16 pb-12 text-center">
+    <div class="inline-flex items-center gap-2 bg-hijau-100 text-hijau-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+      Pelayanan Publik Digital
+    </div>
+    <div class="w-20 h-20 bg-hijau-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-hijau-200">
+      <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+    </div>
+    <h1 class="text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
+      Selamat Datang di<br><span class="text-hijau-600">DesaConnect</span>
+    </h1>
+    <p class="text-lg text-slate-500 mb-2 font-medium"><%= desaNama %>, <%= desaKabupaten %></p>
+    <p class="text-slate-500 max-w-xl mx-auto mb-10">Urus surat keterangan desa secara online — cepat, mudah, dan bisa dipantau status prosesnya kapan saja.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/auth/login" class="bg-hijau-600 hover:bg-hijau-700 text-white font-bold px-8 py-3.5 rounded-xl shadow-md shadow-hijau-200 transition transform hover:-translate-y-0.5">
+        Masuk sebagai Warga
+      </a>
+      <a href="/auth/register" class="bg-white hover:bg-slate-50 text-hijau-700 font-bold px-8 py-3.5 rounded-xl border-2 border-hijau-200 transition">
+        Daftar Akun Baru
+      </a>
+    </div>
+    <a href="/auth/admin-login" class="inline-block mt-4 text-sm text-slate-400 hover:text-slate-600 transition">Masuk sebagai Admin Desa →</a>
+  </div>
+
+  <!-- Fitur Grid -->
+  <div class="max-w-5xl mx-auto px-4 pb-16">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition">
+        <div class="w-12 h-12 bg-biru-50 rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-biru-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <h3 class="font-bold text-slate-800 mb-1">Ajukan Surat Online</h3>
+        <p class="text-sm text-slate-500">Kirim permohonan surat keterangan kapan saja tanpa antri ke kantor desa.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition">
+        <div class="w-12 h-12 bg-hijau-50 rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-hijau-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+        </div>
+        <h3 class="font-bold text-slate-800 mb-1">Pantau Status Real-time</h3>
+        <p class="text-sm text-slate-500">Lacak progres surat Anda dari Pending hingga Selesai dengan stepper yang jelas.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition">
+        <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        </div>
+        <h3 class="font-bold text-slate-800 mb-1">Aman & Terpercaya</h3>
+        <p class="text-sm text-slate-500">Data warga diproteksi dengan enkripsi dan sistem autentikasi yang aman.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

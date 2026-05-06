@@ -1,0 +1,82 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar-admin') %>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="mb-8">
+    <h1 class="text-2xl font-extrabold text-slate-900">Dashboard Admin Desa</h1>
+    <p class="text-slate-500">Selamat bekerja! Kelola pengajuan surat warga di sini.</p>
+  </div>
+
+  <!-- Ringkasan Statistik -->
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-10">
+    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+      <p class="text-xs text-slate-400 font-bold uppercase">Total Warga</p>
+      <p class="text-2xl font-bold text-slate-900"><%= wargaTotal %></p>
+    </div>
+    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 border-l-4 border-l-amber-500">
+      <p class="text-xs text-amber-600 font-bold uppercase">Pending</p>
+      <p class="text-2xl font-bold text-slate-900"><%= stats.pending || 0 %></p>
+    </div>
+    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 border-l-4 border-l-biru-500">
+      <p class="text-xs text-biru-600 font-bold uppercase">Diproses</p>
+      <p class="text-2xl font-bold text-slate-900"><%= stats.diproses || 0 %></p>
+    </div>
+    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 border-l-4 border-l-hijau-500">
+      <p class="text-xs text-hijau-600 font-bold uppercase">Selesai</p>
+      <p class="text-2xl font-bold text-slate-900"><%= stats.selesai || 0 %></p>
+    </div>
+    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 border-l-4 border-l-red-500">
+      <p class="text-xs text-red-600 font-bold uppercase">Ditolak</p>
+      <p class="text-2xl font-bold text-slate-900"><%= stats.ditolak || 0 %></p>
+    </div>
+  </div>
+
+  <!-- Tabel Pengajuan Surat -->
+  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    <div class="px-6 py-4 border-b border-slate-100 bg-slate-50">
+      <h2 class="font-bold text-slate-800">Daftar Pengajuan Surat Terbaru</h2>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="text-slate-400 text-xs uppercase border-b border-slate-100">
+            <th class="px-6 py-4 font-semibold">Pemohon</th>
+            <th class="px-6 py-4 font-semibold">Jenis Surat</th>
+            <th class="px-6 py-4 font-semibold">Status</th>
+            <th class="px-6 py-4 font-semibold">Aksi</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-sm">
+          <% if (surat.length > 0) { %>
+            <% surat.forEach(s => { %>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="px-6 py-4">
+                  <p class="font-bold text-slate-800"><%= s.nama_lengkap %></p>
+                  <p class="text-xs text-slate-500">NIK: <%= s.nik %></p>
+                </td>
+                <td class="px-6 py-4 text-slate-600"><%= s.jenis_surat %></td>
+                <td class="px-6 py-4">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold 
+                    <%= s.status === 'Selesai' ? 'bg-hijau-100 text-hijau-700' : 
+                        s.status === 'Diproses' ? 'bg-biru-100 text-biru-700' : 
+                        s.status === 'Ditolak' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700' %>">
+                    <%= s.status %>
+                  </span>
+                </td>
+                <td class="px-6 py-4">
+                  <a href="/admin/surat/<%= s.id %>" class="bg-slate-900 text-white text-xs px-3 py-1.5 rounded-lg hover:bg-slate-700 transition">Detail & Proses</a>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="4" class="px-6 py-10 text-center text-slate-400 italic">Belum ada pengajuan surat yang masuk.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,71 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar-admin') %>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="mb-8 flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-extrabold text-slate-900">Database Warga</h1>
+      <p class="text-slate-500">Daftar seluruh warga yang memiliki akun di <%= desaNama %>.</p>
+    </div>
+    <div class="bg-hijau-100 text-hijau-700 px-4 py-2 rounded-xl text-sm font-bold border border-hijau-200">
+      Total: <%= warga.length %> Warga
+    </div>
+  </div>
+
+  <!-- Tabel Data Warga -->
+  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-slate-50 text-slate-400 text-xs uppercase border-b border-slate-100">
+            <th class="px-6 py-4 font-semibold">Nama Lengkap & NIK</th>
+            <th class="px-6 py-4 font-semibold">Kontak</th>
+            <th class="px-6 py-4 font-semibold">Alamat</th>
+            <th class="px-6 py-4 font-semibold text-center">Aktivitas Surat</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-sm">
+          <% if (warga.length > 0) { %>
+            <% warga.forEach(w => { %>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center font-bold text-slate-600">
+                      <%= w.nama_lengkap.charAt(0).toUpperCase() %>
+                    </div>
+                    <div>
+                      <p class="font-bold text-slate-800"><%= w.nama_lengkap %></p>
+                      <p class="text-[10px] font-mono text-slate-400 tracking-tighter"><%= w.nik %></p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-slate-600">
+                  <p class="flex items-center gap-1">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L22 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <%= w.email %>
+                  </p>
+                  <p class="text-xs text-slate-400 mt-0.5"><%= w.nomor_hp || '-' %></p>
+                </td>
+                <td class="px-6 py-4">
+                  <p class="text-xs text-slate-500 line-clamp-2 max-w-xs"><%= w.alamat %></p>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <span class="inline-flex items-center gap-1 bg-slate-100 text-slate-700 px-3 py-1 rounded-lg font-bold text-xs">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <%= w.total_surat %> Surat
+                  </span>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="4" class="px-6 py-10 text-center text-slate-400 italic">Belum ada warga yang terdaftar.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

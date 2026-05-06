@@ -1,0 +1,67 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar-admin') %>
+
+<main class="max-w-4xl mx-auto px-4 py-12">
+  <div class="mb-8 flex justify-between items-center">
+    <div>
+      <a href="/admin/dashboard" class="text-hijau-600 hover:text-hijau-700 text-sm font-semibold flex items-center gap-1 mb-4">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Kembali ke Dashboard
+      </a>
+      <h1 class="text-3xl font-extrabold text-slate-900">Proses Pengajuan Surat</h1>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="md:col-span-2 space-y-6">
+      <!-- Data Warga -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Informasi Pemohon</h3>
+        <div class="grid grid-cols-2 gap-y-6 text-sm">
+          <div><p class="text-slate-400 mb-1">Nama Lengkap</p><p class="font-bold text-slate-800"><%= surat.nama_lengkap %></p></div>
+          <div><p class="text-slate-400 mb-1">NIK</p><p class="font-bold text-slate-800"><%= surat.nik %></p></div>
+          <div><p class="text-slate-400 mb-1">Kontak</p><p class="font-bold text-slate-800"><%= surat.nomor_hp %></p></div>
+          <div><p class="text-slate-400 mb-1">Email</p><p class="font-bold text-slate-800 text-xs"><%= surat.email %></p></div>
+        </div>
+      </div>
+
+      <!-- Isi Surat -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+        <h3 class="text-sm font-bold text-slate-400 uppercase mb-4">Detail Pengajuan</h3>
+        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+          <p class="text-xs font-bold text-slate-400 uppercase mb-2">Keperluan:</p>
+          <p class="text-slate-700 leading-relaxed italic">"<%= surat.keperluan %>"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel Update Status -->
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 h-fit">
+      <h3 class="font-bold text-slate-800 mb-6">Update Status Surat</h3>
+      <%- include('../partials/flash') %>
+      <form action="/admin/surat/<%= surat.id %>/status" method="POST" class="space-y-5">
+        <div>
+          <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Status Saat Ini</label>
+          <select name="status" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-hijau-400 outline-none transition bg-slate-50">
+            <option value="Pending" <%= surat.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+            <option value="Diproses" <%= surat.status === 'Diproses' ? 'selected' : '' %>>Diproses</option>
+            <option value="Selesai" <%= surat.status === 'Selesai' ? 'selected' : '' %>>Selesai</option>
+            <option value="Ditolak" <%= surat.status === 'Ditolak' ? 'selected' : '' %>>Ditolak</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Catatan Admin</label>
+          <textarea name="catatan_admin" rows="4" placeholder="Contoh: Silakan ambil di kantor desa besok pagi." 
+            class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-hijau-400 outline-none transition bg-slate-50 resize-none"><%= surat.catatan_admin %></textarea>
+        </div>
+        
+        <button type="submit" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition shadow-lg shadow-slate-200">
+          Simpan Perubahan
+        </button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

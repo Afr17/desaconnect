@@ -1,0 +1,78 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar-warga') %>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="mb-8">
+    <h1 class="text-2xl font-extrabold text-slate-900">Selamat Datang, <%= warga.nama %>!</h1>
+    <p class="text-slate-500">Pantau status pengajuan surat Anda di sini.</p>
+  </div>
+
+  <!-- Statistik Singkat -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+      <p class="text-sm text-slate-500 font-medium">Total Pengajuan</p>
+      <p class="text-3xl font-bold text-slate-900"><%= stats.total || 0 %></p>
+    </div>
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+      <p class="text-sm text-amber-500 font-medium">Pending</p>
+      <p class="text-3xl font-bold text-slate-900"><%= stats.pending || 0 %></p>
+    </div>
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+      <p class="text-sm text-biru-500 font-medium">Diproses</p>
+      <p class="text-3xl font-bold text-slate-900"><%= stats.diproses || 0 %></p>
+    </div>
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+      <p class="text-sm text-hijau-500 font-medium">Selesai</p>
+      <p class="text-3xl font-bold text-slate-900"><%= stats.selesai || 0 %></p>
+    </div>
+  </div>
+
+  <!-- Tabel Riwayat Surat -->
+  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+      <h2 class="font-bold text-slate-800">Riwayat Pengajuan Surat</h2>
+      <a href="/warga/ajukan" class="text-sm text-hijau-600 font-semibold hover:underline">+ Ajukan Baru</a>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-slate-50 text-slate-400 text-xs uppercase">
+            <th class="px-6 py-3 font-semibold">Kode Surat</th>
+            <th class="px-6 py-3 font-semibold">Jenis Surat</th>
+            <th class="px-6 py-3 font-semibold">Tanggal</th>
+            <th class="px-6 py-3 font-semibold">Status</th>
+            <th class="px-6 py-3 font-semibold">Aksi</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 text-sm">
+          <% if (surat.length > 0) { %>
+            <% surat.forEach(s => { %>
+              <tr class="hover:bg-slate-50 transition">
+                <td class="px-6 py-4 font-mono font-medium text-slate-700"><%= s.kode_surat %></td>
+                <td class="px-6 py-4 text-slate-600"><%= s.jenis_surat %></td>
+                <td class="px-6 py-4 text-slate-500"><%= new Date(s.tanggal_pengajuan).toLocaleDateString('id-ID') %></td>
+                <td class="px-6 py-4">
+                  <span class="px-3 py-1 rounded-full text-xs font-bold 
+                    <%= s.status === 'Selesai' ? 'bg-hijau-100 text-hijau-700' : 
+                        s.status === 'Diproses' ? 'bg-biru-100 text-biru-700' : 
+                        s.status === 'Ditolak' ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700' %>">
+                    <%= s.status %>
+                  </span>
+                </td>
+                <td class="px-6 py-4">
+                  <a href="/warga/surat/<%= s.id %>" class="text-hijau-600 hover:text-hijau-700 font-medium">Detail</a>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="5" class="px-6 py-10 text-center text-slate-400">Belum ada pengajuan surat.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>
