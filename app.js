@@ -4,6 +4,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const path = require('path');
+const upload = require('./s3config'); // Memanggil middleware S3 yang baru kamu buat
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -47,11 +48,30 @@ app.use((req, res, next) => {
 // ========================
 // ROUTES
 // ========================
+
+// Contoh Route Baru: Tes Upload File ke S3
+// 'file_surat' adalah nama field di form HTML ( <input type="file" name="file_surat"> )
+app.post('/test-upload', upload.single('file_surat'), (req, res) => {
+    try {
+        if (!req.file) {
+            req.flash('error', 'Gagal upload: File tidak ditemukan');
+            return res.redirect('back');
+        }
+        // req.file.location berisi URL publik dari S3 untuk disimpan ke DB
+        console.log("File berhasil masuk S3:", req.file.location);
+        req.flash('success', 'File berhasil diunggah ke cloud storage!');
+        res.redirect('/');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Terjadi kesalahan server saat upload.");
+    }
+});
+
 app.use('/auth', require('./routes/auth'));
 app.use('/warga', require('./routes/warga'));
 app.use('/admin', require('./routes/admin'));
 
-// Halaman utama - PERBAIKAN: Mengarah ke warga/home
+// Halaman utama
 app.get('/', (req, res) => {
   if (req.session.warga) return res.redirect('/warga/dashboard');
   if (req.session.admin) return res.redirect('/admin/dashboard');
@@ -63,11 +83,11 @@ app.use((req, res) => {
   res.status(404).render('404', { title: 'Halaman Tidak Ditemukan' });
 });
 
-// Error handler - PERBAIKAN agar variabel 'title' selalu terkirim
+// Error handler
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', { 
-        title: 'Terjadi Kesalahan', // Menambahkan title agar header.ejs tidak error[cite: 1]
+        title: 'Terjadi Kesalahan',
         message: err.message, 
         error: process.env.NODE_ENV === 'development' ? err : {} 
     });

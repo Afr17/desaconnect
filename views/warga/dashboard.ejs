@@ -7,7 +7,6 @@
     <p class="text-slate-500">Pantau status pengajuan surat Anda di sini.</p>
   </div>
 
-  <!-- Statistik Singkat -->
   <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
       <p class="text-sm text-slate-500 font-medium">Total Pengajuan</p>
@@ -27,7 +26,21 @@
     </div>
   </div>
 
-  <!-- Tabel Riwayat Surat -->
+  <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 mb-10">
+    <h2 class="text-lg font-bold text-slate-800 mb-4">Unggah Dokumen Pendukung (Cloud Storage S3)</h2>
+    <form action="/test-upload" method="POST" enctype="multipart/form-data" class="flex flex-col md:flex-row gap-4 items-end">
+      <div class="flex-1 w-full">
+        <label for="file_surat" class="block text-sm font-medium text-slate-700 mb-2">Pilih File (Gambar/PDF)</label>
+        <input type="file" name="file_surat" id="file_surat" required
+          class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-hijau-50 file:text-hijau-700 hover:file:bg-hijau-100 border border-slate-200 rounded-lg p-1">
+      </div>
+      <button type="submit" class="bg-hijau-600 hover:bg-hijau-700 text-white font-bold py-2.5 px-6 rounded-xl transition duration-200">
+        Upload ke S3
+      </button>
+    </form>
+    <p class="text-xs text-slate-400 mt-2 italic">*File akan langsung disimpan di Amazon S3 Bucket: desaconnect-storage-afrijal</p>
+  </div>
+
   <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
     <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
       <h2 class="font-bold text-slate-800">Riwayat Pengajuan Surat</h2>
